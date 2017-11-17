@@ -30,3 +30,5 @@
 * SweetAlert
 
 
+## Installation
+
