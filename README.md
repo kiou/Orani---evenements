@@ -18,17 +18,13 @@
 * Template affichage en calendrier
 
 
-
 ## Dépendances
-* RefrencementBundle
-
+* ReferencementBundle
 * GlobalBundle
 * Tinymce
-* Datedropper
+* DateDropper
 * Filemanager
-
 * SweetAlert
-
 
 ## Installation
 
