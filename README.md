@@ -11,27 +11,20 @@
 
 
 ## Client
-
 * Liste des événements
 * Trier par catégorie
-
 * Page d'un événement
-
 * Template mise en avant des événement
 * Template affichage en calendrier
 
 
 
 ## Dépendances
-
 * RefrencementBundle
 
 * GlobalBundle
-
 * Tinymce
-
 * Datedropper
-
 * Filemanager
 
 * SweetAlert
