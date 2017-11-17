@@ -1,15 +1,11 @@
 ## Administration
 
 * Création d'un événement
-
 * Gestion d'un événement
 * Modifier un événement
-
 * Publication d'un événement
 * Ajouter une catégorie
-
 * Gestion des catégories
-
 * Modifier une catégorie
 
 
