@@ -192,4 +192,29 @@ class EvenementController extends Controller
             )
         );
     }
+
+    /*
+     * View
+     */
+    public function viewClientAction($id)
+    {
+        /* Evenement en cours */
+        $evenement = $this->getDoctrine()
+                          ->getRepository('EvenementBundle:Evenement')
+                          ->getCurrentEvenement($id);
+
+        if(is_null($evenement)) throw new NotFoundHttpException('Cette page n\'est pas disponible');
+
+        /* BreadCrumb */
+        $breadcrumb = array(
+            'Les événements' => $this->generateUrl('client_evenement_manager'),
+            $evenement->getTitre() => ''
+        );
+
+        return $this->render( 'EvenementBundle:Client:view.html.twig',array(
+                'evenement' => $evenement,
+                'breadcrumb' => $breadcrumb
+            )
+        );
+    }
 }
