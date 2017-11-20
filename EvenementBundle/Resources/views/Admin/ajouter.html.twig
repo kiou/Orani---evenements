@@ -1,10 +1,5 @@
 {% extends "GlobalBundle:Admin/Layout:layout.html.twig" %}
 
-{% block cssBefore %}
-    <link href="{{ asset('js/datedropper/datedropper.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('js/datedropper/my-style.css')}}" rel="stylesheet" type="text/css">
-{% endblock %}
-
 {% block contentTitre %} Ajouter un événement{% endblock %}
 
 {% block content %}
@@ -30,39 +25,11 @@
 
         {{ form_label(form.debut, "Date de début *") }}
         {{ form_errors(form.debut) }}
-        {{
-            form_widget(form.debut, {
-                'attr': {
-                    'class': 'form-elem big form-date',
-                    'placeholder': '00/00/000',
-                    'data-lang':app.request.locale,
-                    'data-large-default':'true',
-                    'data-large-mode':'true',
-                    'data-theme':'my-style',
-                    'data-format':'d/m/Y',
-                    'data-init-set':'false',
-                    'data-max-year':'2030'
-                }
-            })
-        }}
+        {{ form_widget(form.debut, {'attr': {'class': 'form-elem big form-date-time'}}) }}
 
         {{ form_label(form.fin, "Date de fin *") }}
         {{ form_errors(form.fin) }}
-        {{
-            form_widget(form.fin, {
-                'attr': {
-                    'class': 'form-elem big form-date',
-                    'placeholder': '00/00/000',
-                    'data-lang':app.request.locale,
-                    'data-large-default':'true',
-                    'data-large-mode':'true',
-                    'data-theme':'my-style',
-                    'data-format':'d/m/Y',
-                    'data-init-set':'false',
-                    'data-max-year':'2030'
-                }
-            })
-        }}
+        {{ form_widget(form.fin, {'attr': {'class': 'form-elem big form-date-time'}}) }}
 
         <div class="form-radio">
             {{ form_label(form.avant, "Mise en avant *") }}
@@ -96,7 +63,8 @@
 {% endblock %}
 
 {% block scriptBefore %}
-    <script type="text/javascript" src="{{ asset('js/datedropper/datedropper.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('js/datepicker/langue/fr.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('js/datepicker/timepicker.js')}}"></script>
 {% endblock %}
 
 {% block scriptAfter %}

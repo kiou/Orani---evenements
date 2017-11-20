@@ -25,15 +25,21 @@ class EvenementType extends AbstractType
             ->add('titre', TextType::class)
             ->add('slug', TextType::class)
             ->add('debut', DateType::class, array(
+                    'attr' => array(
+                        'placeholder' => '00/00/000 00:00'
+                    ),
                     'widget' => 'single_text',
                     'html5' => false,
-                    'format' => 'dd/MM/yyyy'
+                    'format' => 'dd/MM/yyyy HH:mm'
                 )
             )
             ->add('fin', DateType::class, array(
+                    'attr' => array(
+                        'placeholder' => '00/00/000 00:00'
+                    ),
                     'widget' => 'single_text',
                     'html5' => false,
-                    'format' => 'dd/MM/yyyy'
+                    'format' => 'dd/MM/yyyy HH:mm'
                 )
             )
             ->add('fileimage', FileType::class)
