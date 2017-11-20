@@ -1,3 +1,65 @@
-evenement_homepage:
-    path:     /
-    defaults: { _controller: EvenementBundle:Default:index }
+admin_evenement_manager:
+    path:     /admin/evenement/gestion
+    defaults: { _controller: EvenementBundle:Evenement:managerAdmin }
+
+admin_evenement_ajouter:
+    path:     /admin/evenement/ajouter
+    defaults: { _controller: EvenementBundle:Evenement:ajouterAdmin }
+
+admin_evenement_publier:
+    path:     /admin/evenement/publier/{id}
+    defaults: { _controller: EvenementBundle:Evenement:publierAdmin }
+    requirements:
+        id: \d+
+
+admin_evenement_modifier:
+    path:     /admin/evenement/modifier/{id}
+    defaults: { _controller: EvenementBundle:Evenement:modifierAdmin }
+    requirements:
+        id: \d+
+
+admin_evenement_supprimer:
+    path:     /admin/evenement/supprimer/{id}
+    defaults: { _controller: EvenementBundle:Evenement:supprimerAdmin }
+    requirements:
+        id: \d+
+
+admin_evenement_supprimer_image:
+    path:     /admin/evenement/supprimer-image/{id}
+    defaults: { _controller: EvenementBundle:Evenement:AdminSupprimerImage }
+    requirements:
+        id: \d+
+
+client_evenement_manager:
+    path:     /evenements
+    defaults: { _controller: EvenementBundle:Evenement:managerClient }
+
+client_evenement_view:
+    path:     /evenement/{slug}/{id}
+    defaults: { _controller: EvenementBundle:Evenement:viewClient }
+    requirements:
+        slug: ([a-z-0-9]*)
+        id: \d+
+
+#Catégorie
+admin_evenementcategorie_manager:
+    path:     /admin/evenement-categorie/manager
+    defaults: { _controller: EvenementBundle:Categorie:managerAdmin }
+
+admin_evenementcategorie_ajouter:
+    path:     /admin/evenement-categorie/ajouter
+    defaults: { _controller: EvenementBundle:Categorie:ajouterAdmin }
+
+admin_evenementcategorie_modifier:
+    path:     /admin/evenement-categorie/modifier/{id}
+    defaults: { _controller: EvenementBundle:Categorie:modifierAdmin }
+    requirements:
+        id: \d+
+
+admin_evenementcategorie_supprimer:
+    path:     /admin/evenement-categorie/supprimer/{id}
+    defaults: { _controller: EvenementBundle:Categorie:supprimerAdmin }
+    requirements:
+        id: \d+
+
+

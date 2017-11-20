@@ -1,0 +1,96 @@
+{% extends "GlobalBundle:Client/Layout:layout.html.twig" %}
+
+{% block metaTitle %}Meta title{% endblock %}
+{% block metaDescription %}Meta description{% endblock %}
+
+{% block contentitle %}
+    <h1>Les événements</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="recherche">
+        <form action="{{ path('client_evenement_manager') }}" method="post">
+
+            <select name="categorie">
+                <option value="">Choisir une catégorie</option>
+                {% for categorie in categories %}
+                    {% if recherches.categorie == categorie.id %}
+                        <option value="{{ categorie.id }}" selected>{{ categorie.nom }}</option>
+                    {% else %}
+                        <option value="{{ categorie.id }}">{{ categorie.nom }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+
+            <button type="submit" name="addRecherche"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+
+    {% if avant %}
+        <div class="evenementAvant">
+
+            <div class="evenementTitre">
+                <h3><a href="{{ path('client_evenement_view',{'slug': avant.slug, 'id': avant.id})}}">{{ avant.titre }}</a></h3>
+            </div>
+
+            <div class="evenementImage">
+                {% if avant.image %}
+                    <img src="{{ asset('img/evenement/miniature/' ~ avant.image) }}">
+                {% endif %}
+            </div>
+
+            <div class="evenementDate">
+                <p>{{ avant.debut|date("d/m/Y") }}</p>
+            </div>
+
+            <div class="evenementResume">
+                <p>{{ avant.resume }}</p>
+            </div>
+
+            <div class="evenementLien">
+                <a href="{{ path('client_evenement_view',{'slug': avant.slug, 'id': avant.id})}}"><i class="fa fa-angle-right"></i> Voir plus</a>
+            </div>
+
+        </div>
+    {% endif %}
+
+
+    <div class="evenements">
+
+        {% for evenement in pagination %}
+            <div class="evenement">
+                <div class="evenementTitre">
+                    <h3><a href="{{ path('client_evenement_view',{'slug': evenement.slug, 'id': evenement.id})}}">{{ evenement.titre|truncate(30) }}</a></h3>
+                </div>
+
+                <div class="evenementImage">
+                    {% if evenement.image %}
+                        <img src="{{ asset('img/evenement/miniature/' ~ evenement.image) }}">
+                    {% endif %}
+                </div>
+
+                <div class="evenementDate">
+                    <p>{{ evenement.debut|date("d/m/Y") }}</p>
+                </div>
+
+                <div class="evenementResume">
+                    <p>{{ evenement.resume|truncate(120) }}</p>
+                </div>
+
+                <div class="evenementLien">
+                    <a href="{{ path('client_evenement_view',{'slug': evenement.slug, 'id': evenement.id})}}"><i class="fa fa-angle-right"></i> Voir plus</a>
+                </div>
+            </div>
+        {% else %}
+            <p>Aucune actualité</p>
+        {% endfor %}
+
+        <div class="clear"></div>
+
+    </div>
+
+    {# display navigation #}
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "GlobalBundle:Admin/Layout:layout.html.twig" %}
+
+{% block contentTitre %} Modifier une catégorie {% endblock %}
+
+{% block breadcrumb %}
+	<div id="breadcrumb">
+		{{ include("GlobalBundle:Admin/Include:breadcrumb.html.twig") }}
+	</div>
+{% endblock %}
+
+{% block content %}
+
+	{{ form_start(form, {'attr': {novalidate: 'novalidate'}}) }}
+
+		{{ form_errors(form) }}
+		
+		{{ form_label(form.nom, "Nom *") }}
+		{{ form_errors(form.nom) }}
+		{{ form_widget(form.nom, {'attr': {'class': 'form-elem big'}}) }}
+
+		{{ form_rest(form) }}
+
+	{{ form_end(form) }}
+
+{% endblock %}

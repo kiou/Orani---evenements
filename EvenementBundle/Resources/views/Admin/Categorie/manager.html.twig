@@ -1,0 +1,67 @@
+{% extends "GlobalBundle:Admin/Layout:layout.html.twig" %}
+
+{% block cssBefore %}
+	<link href="{{ asset('js/sweet/sweet.css')}}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block contentTitre %}Gestion des catégories{% endblock %}
+
+{% block content %}
+
+    {{ form_start(form, {'attr': {novalidate: 'novalidate'}}) }}
+
+		{{ form_errors(form) }}
+
+		{{ form_label(form.nom, "Nom *") }}
+		{{ form_errors(form.nom) }}
+		{{ form_widget(form.nom, {'attr': {'class': 'form-elem big'}}) }}
+
+		{{ form_rest(form) }}
+
+    {{ form_end(form) }}
+
+	<br><br><table class="table">
+		
+		<tr>
+			<th class="left" width="90%">Catégorie</th>
+			<th colspan="2" width="10%">Actions</th>
+		</tr>
+
+		{% for categorie in categories %}
+			
+			<tr>
+
+				<td class="left">
+					<p class="tableDate">Ajouté le {{ categorie.created|date("d/m/Y à H:i") }}</p>
+					{% if categorie.changed is not null %}
+						<p class="tableDate">Modifié le {{ categorie.changed|date("d/m/Y à H:i") }}</p>
+					{% endif %}
+					<p><strong>{{ categorie.nom }}</strong></p>
+				</td>
+
+				<td>
+                    <a href="{{ path('admin_evenementcategorie_modifier',{'id': categorie.id})}}" title="Modifier la catégorie"><i class=" tableAction fa fa-pencil"></i></a>
+                </td>
+
+				<td>
+                    {% if categorie.evenements|length == 0 %}
+						<a href="{{ path('admin_evenementcategorie_supprimer',{'id': categorie.id})}}" class="sweetDelete" title="Supprimer la catégorie" data-title="Supprimer la catégorie" data-text="êtes vous sur ?"><i class=" tableAction fa fa-trash"></i></a>
+                    {%  else %}
+						<a href="#" class="sweetAlert" title="Supprimer la catégorie" data-title="Suppression impossible" data-text="Il éxiste une relation avec un événement"><i class="disabled tableAction fa fa-trash"></i></a>
+					{% endif %}
+                </td>
+			</tr>
+
+		{% else %}
+			<tr>
+				<td colspan="3">Aucune catégorie</td>
+			</tr>
+		{% endfor %}
+
+	</table>
+
+{% endblock %}
+
+{% block scriptBefore %}
+	<script type="text/javascript" src="{{ asset('js/sweet/sweet.js')}}"></script>
+{% endblock %}

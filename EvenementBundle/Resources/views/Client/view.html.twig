@@ -1,0 +1,42 @@
+{% extends "GlobalBundle:Client/Layout:layout.html.twig" %}
+
+{% block metaTitle %}{{ evenement.referencement.title }}{% endblock %}
+{% block metaDescription %}{{ evenement.referencement.description }}{% endblock %}
+
+{% block openGraph %}
+    {% include"ReferencementBundle:Client/Include:view.html.twig" with {'data': evenement} %}
+{% endblock %}
+
+{% block contentitle %}
+    <h1>{{ evenement.titre }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    <div id="breadcrumb">
+        {{ include("GlobalBundle:Client/Include:breadcrumb.html.twig", {'breadcrumb':breadcrumb }) }}
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="evenementViewImage">
+        {% if evenement.image %}
+            <img src="{{ asset('img/evenement/tmp/' ~ evenement.image) }}">
+        {% endif %}
+    </div>
+
+    <div class="evenementViewDate">
+        <p><strong>Date:</strong> {{ evenement.debut|date("d/m/Y") }}</p>
+    </div>
+
+    {% if evenement.categorie %}
+        <div class="evenementViewCategorie">
+            <p><strong>Catégorie:</strong> {{ evenement.categorie.nom }}</p>
+        </div>
+    {% endif %}
+
+    <div class="wysiwyg">
+        {{ evenement.contenu|raw }}
+    </div>
+
+{% endblock %}
