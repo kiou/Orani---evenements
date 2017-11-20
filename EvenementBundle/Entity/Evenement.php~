@@ -52,6 +52,8 @@ class Evenement
      */
     private $debut;
 
+    private $debutheure;
+
     /**
      * @var \DateTime
      *
@@ -502,5 +504,29 @@ class Evenement
     public function getReferencement()
     {
         return $this->referencement;
+    }
+
+    /**
+     * Set categorie
+     *
+     * @param \EvenementBundle\Entity\Categorie $categorie
+     *
+     * @return Evenement
+     */
+    public function setCategorie(\EvenementBundle\Entity\Categorie $categorie = null)
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * Get categorie
+     *
+     * @return \EvenementBundle\Entity\Categorie
+     */
+    public function getCategorie()
+    {
+        return $this->categorie;
     }
 }
