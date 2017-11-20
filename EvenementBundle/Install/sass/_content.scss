@@ -1,0 +1,65 @@
+/* EvenementBundle */
+.evenements{
+    margin: 0px -15px 0px -15px;
+}
+
+.evenement{
+    float: left;
+    width: calc((100% / 3) - 30px);
+    margin: 0px 15px 30px 15px;
+    background-color: lighten($grisClair,13%);
+    padding:20px;
+    min-height: 400px;
+}
+
+.evenementTitre{
+    margin-bottom: 10px;
+}
+
+.evenementImage{
+    img{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+.evenementDate{
+    margin-bottom: 10px;
+}
+
+.evenementResume{
+    margin-bottom: 15px;
+}
+
+.evenementLien{
+    a{
+        font-size: 14px;
+    }
+}
+
+.evenementAvant{
+    float: left;
+    width: 100%;
+    margin: 0px 0px 30px 0px;
+    background-color: lighten($grisClair,13%);
+    padding:20px;
+
+    .evenementImage{
+        img{
+            width: auto;
+            max-width: 100%
+        }
+    }
+}
+
+.evenementViewImage{
+    img{
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+.evenementViewDate,
+.evenementViewCategorie{
+    margin-bottom: 20px;
+}
