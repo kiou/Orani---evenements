@@ -42,11 +42,11 @@
 ### Fichier
 * app/AppKernel.php
 ```php
-new EvenementBundleEvenementBundle(),
+new EvenementBundle/EvenementBundle(),
 ```
 * app/config.yml
 ```yml
-- { resource: "@EvenementBundme/Resources/config/services.yml" }
+- { resource: "@EvenementBundle/Resources/config/services.yml" }
 ```
 * app/routing.yml
 ```yml
@@ -58,3 +58,4 @@ evenement:
 * Ajouter le dossier web/img/evenement/tmp
 * Ajouter le dossier web/img/evenement/minitaure
 * Design disponible dans le dossier Install
+* JS disponible dans le dossier Install

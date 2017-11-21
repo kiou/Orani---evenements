@@ -41,6 +41,16 @@ client_evenement_view:
         slug: ([a-z-0-9]*)
         id: \d+
 
+client_calendrier_ajax:
+    path:     /evenement/calendrier/{annee}/{mois}
+    defaults:
+        _controller: EvenementBundle:Evenement:calendrierEvenement
+        annee : null
+        mois : null
+    requirements:
+        annee: \d+
+        mois: \d+
+
 #Catégorie
 admin_evenementcategorie_manager:
     path:     /admin/evenement-categorie/manager

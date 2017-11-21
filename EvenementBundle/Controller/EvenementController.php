@@ -217,4 +217,69 @@ class EvenementController extends Controller
             )
         );
     }
+
+    /**
+     * Block template liste
+     */
+    public function lastEvenementAction($limit)
+    {
+
+        $evenements = $this->getDoctrine()
+                           ->getRepository('EvenementBundle:Evenement')
+                           ->getAllEvenements(null, null, false, $limit);
+
+        return $this->render( 'EvenementBundle:Include:liste.html.twig',array(
+                'evenements' => $evenements
+            )
+        );
+
+    }
+
+    /**
+     * Block template calendrier
+     */
+    public function calendrierEvenementAction(Request $request, $annee = null, $mois = null)
+    {
+        $agenda = $this->get('agenda.service');
+        $moisfr = $agenda->getMois();
+        $joursfr = $agenda->getJours();
+        $evenementsR = array();
+
+        /* La liste des événements pour le calendier */
+        $evenements = $this->getDoctrine()
+                           ->getRepository('EvenementBundle:Evenement')
+                           ->getAllEvenementsCalendrier();
+
+        foreach ($evenements as $evenement){
+            $evenementsR[$evenement->getDebut()->format('Y-m-d')][$evenement->getId()] = '<span>'.$evenement->getDebut()->format('d/m/Y').'</span><a href="#">'.$evenement->getTitre().'</a>';
+        }
+
+        if($request->isXmlHttpRequest()){
+
+            return new JsonResponse(array(
+                    'date' => $moisfr[$mois -1].' '.$annee,
+                    'contenu' => $this->render('EvenementBundle:Include:calendrier-ajax.html.twig', array(
+                        'calendrier' => $agenda->getCalendrier($annee),
+                        'evenements' => $evenementsR,
+                        'annee' => $annee,
+                        'mois' => $mois,
+                    ))->getContent()
+                )
+            );
+
+        }else{
+            $annee = date('Y');
+            $mois = date('n');
+
+            return $this->render( 'EvenementBundle:Include:calendrier.html.twig',array(
+                    'calendrier' => $agenda->getCalendrier($annee),
+                    'evenements' => $evenementsR,
+                    'joursfr' => $joursfr,
+                    'moisfr' => $moisfr,
+                    'annee' => $annee,
+                    'mois' => $mois
+                )
+            );
+        }
+    }
 }

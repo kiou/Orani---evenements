@@ -1,0 +1,31 @@
+{% if evenements %}
+
+    <div class="evenements">
+        {% for evenement in evenements %}
+            <div class="evenement">
+                <div class="evenementTitre">
+                    <h3><a href="{{ path('client_evenement_view',{'slug': evenement.slug, 'id': evenement.id})}}">{{ evenement.titre|truncate(30) }}</a></h3>
+                </div>
+
+                <div class="evenementImage">
+                    {% if evenement.image %}
+                        <img src="{{ asset('img/evenement/miniature/' ~ evenement.image) }}">
+                    {% endif %}
+                </div>
+
+                <div class="evenementDate">
+                    <p>du {{ evenement.debut|date("d/m/Y à H:i") }} au {{ evenement.fin|date("d/m/Y à H:i") }}</p>
+                </div>
+
+                <div class="evenementResume">
+                    <p>{{ evenement.resume|truncate(120) }}</p>
+                </div>
+
+                <div class="evenementLien">
+                    <a href="{{ path('client_evenement_view',{'slug': evenement.slug, 'id': evenement.id})}}"><i class="fa fa-angle-right"></i> Voir plus</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endif %}

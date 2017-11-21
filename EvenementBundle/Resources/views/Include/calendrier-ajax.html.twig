@@ -1,0 +1,37 @@
+<table>
+    {% set jours = calendrier[annee][mois] %}
+    {% set end = jours|last %}
+
+    {% for d, w in jours %}
+
+        {% if d == 1 and w != 1 %}
+            <td colspan="{{ w -1 }}"></td>
+        {% endif %}
+
+        {% set time = annee~'-'~mois~'-'~d %}
+        <td>
+            {% if evenements[time] is defined %}
+                <span class="calendrierPuce">{{ d }}</span>
+
+                <div class="calendrierEvenement">
+                    <i class="fa fa-times"></i>
+
+                    {% for evenement in evenements[time] %}
+                        {{ evenement|raw }}
+                    {% endfor %}
+                </div>
+            {% else %}
+                {{ d }}
+            {% endif %}
+        </td>
+
+        {% if w == 7 %}
+            </tr><tr>
+        {% endif %}
+
+    {% endfor %}
+
+    {% if end != 7 %}
+        <td colspan="{{ 7 -end }}"></td>
+    {% endif %}
+</table>

@@ -49,6 +49,18 @@ class EvenementRepository extends \Doctrine\ORM\EntityRepository
         return $query = $qb->getQuery()->getResult();
     }
 
+    public function getAllEvenementsCalendrier()
+    {
+        $qb = $this->createQueryBuilder('e')
+                   ->andWhere('e.isActive =  :isActive')
+                   ->setParameter('isActive', true)
+                   ->andWhere('e.fin >=  :fin')
+                   ->setParameter('fin', new \DateTime('now'))
+                   ->orderBy('e.debut', 'ASC');
+
+        return $query = $qb->getQuery()->getResult();
+    }
+
     public function getAvantEvenement()
     {
         $qb = $this->createQueryBuilder('e')
