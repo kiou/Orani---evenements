@@ -251,7 +251,7 @@ class EvenementController extends Controller
                            ->getAllEvenementsCalendrier();
 
         foreach ($evenements as $evenement){
-            $evenementsR[$evenement->getDebut()->format('Y-m-d')][$evenement->getId()] = '<span>'.$evenement->getDebut()->format('d/m/Y').'</span><a href="#">'.$evenement->getTitre().'</a>';
+            $evenementsR[$evenement->getDebut()->format('Y-m-d')][$evenement->getId()] = '<span>'.$evenement->getDebut()->format('d/m/Y').'</span><a href="'.$this->generateUrl('client_evenement_view',array('slug' => $evenement->getSlug(), 'id' => $evenement->getId())).'">'.$evenement->getTitre().'</a>';
         }
 
         if($request->isXmlHttpRequest()){
