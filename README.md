@@ -42,7 +42,7 @@
 ### Fichier
 * app/AppKernel.php
 ```php
-new EvenementBundle/EvenementBundle(),
+new EvenementBundle\EvenementBundle(),
 ```
 * app/config.yml
 ```yml

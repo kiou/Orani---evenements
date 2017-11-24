@@ -19,11 +19,11 @@
 
 {% block content %}
 
-    <div class="evenementViewImage">
-        {% if evenement.image %}
+    {% if evenement.image %}
+        <div class="evenementViewImage">
             <img src="{{ asset('img/evenement/tmp/' ~ evenement.image) }}">
-        {% endif %}
-    </div>
+        </div>
+    {% endif %}
 
     <div class="evenementViewDate">
         <p><strong>Date:</strong> du {{ evenement.debut|date("d/m/Y à H:i") }} au {{ evenement.fin|date("d/m/Y à H:i") }}</p>
@@ -38,5 +38,7 @@
     <div class="wysiwyg">
         {{ evenement.contenu|raw }}
     </div>
+
+    {% include"GlobalBundle:Social:partage.html.twig" with {'titre': evenement.titre, 'url': path('client_evenement_view',{'slug': evenement.slug, 'id': evenement.id})} %}
 
 {% endblock %}

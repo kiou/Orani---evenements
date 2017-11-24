@@ -20,6 +20,7 @@ class EvenementController extends Controller
 
         /* Récéption du formulaire */
         if ($form->handleRequest($request)->isValid()){
+            $evenement->getReferencement()->UploadOgimage();
             $evenement->uploadImage();
 
             $em = $this->getDoctrine()->getManager();
@@ -108,6 +109,7 @@ class EvenementController extends Controller
 
         /* Récéption du formulaire */
         if ($form->handleRequest($request)->isValid()){
+            $evenement->getReferencement()->UploadOgimage();
             $evenement->uploadImage();
 
             $em = $this->getDoctrine()->getManager();

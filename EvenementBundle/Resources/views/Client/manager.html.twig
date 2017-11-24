@@ -33,11 +33,11 @@
                 <h3><a href="{{ path('client_evenement_view',{'slug': avant.slug, 'id': avant.id})}}">{{ avant.titre }}</a></h3>
             </div>
 
-            <div class="evenementImage">
-                {% if avant.image %}
+            {% if avant.image %}
+                <div class="evenementImage">
                     <img src="{{ asset('img/evenement/miniature/' ~ avant.image) }}">
-                {% endif %}
-            </div>
+                </div>
+            {% endif %}
 
             <div class="evenementDate">
                 <p>du {{ avant.debut|date("d/m/Y à H:i") }} au {{ avant.fin|date("d/m/Y à H:i") }}</p>
@@ -63,11 +63,11 @@
                     <h3><a href="{{ path('client_evenement_view',{'slug': evenement.slug, 'id': evenement.id})}}">{{ evenement.titre|truncate(30) }}</a></h3>
                 </div>
 
-                <div class="evenementImage">
-                    {% if evenement.image %}
+                {% if evenement.image %}
+                    <div class="evenementImage">
                         <img src="{{ asset('img/evenement/miniature/' ~ evenement.image) }}">
-                    {% endif %}
-                </div>
+                    </div>
+                {% endif %}
 
                 <div class="evenementDate">
                     <p>du {{ evenement.debut|date("d/m/Y à H:i") }} au {{ evenement.fin|date("d/m/Y à H:i") }}</p>
