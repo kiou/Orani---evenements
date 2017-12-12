@@ -62,13 +62,7 @@
 
 {% endblock %}
 
-{% block scriptBefore %}
-    <script type="text/javascript" src="{{ asset('js/datepicker/langue/fr.js')}}"></script>
-    <script type="text/javascript" src="{{ asset('js/datepicker/timepicker.js')}}"></script>
-{% endblock %}
-
 {% block scriptAfter %}
-    <script type="text/javascript" src="{{ asset('js/tinymce/tinymce.min.js')}}"></script>
     <script type="text/javascript">
         tinymce.init({
             selector: ".wysiwyg",

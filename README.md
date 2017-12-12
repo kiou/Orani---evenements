@@ -33,7 +33,7 @@
 {% set menuEvenement = ['admin_evenement_manager', 'admin_evenement_ajouter', 'admin_evenement_modifier','admin_evenementcategorie_manager', 'admin_evenementcategorie_ajouter', 'admin_evenementcategorie_modifier'] %}
 
 <a href="#" data-nav="evenement-menu" class="menuNav {{ getCurrentMenu(menuEvenement) }}"> <i class="fa fa-newspaper-o"></i> Evénements <i class="fa fa-angle-right"></i></a>
-<ul id="evenement-menu" class="{{ getCurrentMenu(menuEvenement) }}">
+<ul class="evenement-menu {{ getCurrentMenu(menuEvenement) }}">
     <li class="{{ getCurrentMenu(['admin_evenement_ajouter']) }}"><a href="{{ path('admin_evenement_ajouter')}}">Ajouter un événement</a></li>
     <li class="{{ getCurrentMenu(['admin_evenement_manager']) }}"><a href="{{ path('admin_evenement_manager')}}">Gestion des événements</a></li>
     <li class="{{ getCurrentMenu(['admin_evenementcategorie_manager']) }}"><a href="{{ path('admin_evenementcategorie_manager')}}">Gestion des catégories</a></li>
