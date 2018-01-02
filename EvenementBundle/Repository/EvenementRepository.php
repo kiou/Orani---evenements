@@ -11,7 +11,7 @@ namespace EvenementBundle\Repository;
 class EvenementRepository extends \Doctrine\ORM\EntityRepository
 {
 
-    public function getAllEvenements($recherche = null, $categorie = null, $admin = false, $limit = null)
+    public function getAllEvenements($recherche = null, $langue = null, $categorie = null, $admin = false, $limit = null)
     {
         $qb = $this->createQueryBuilder('e');
 
@@ -21,6 +21,14 @@ class EvenementRepository extends \Doctrine\ORM\EntityRepository
         if(!empty($recherche)){
             $qb->andWhere('e.titre LIKE :recherche')
                 ->setParameter('recherche', '%'.$recherche.'%');
+        }
+
+        /**
+         * recherche via la langue
+         */
+        if(!empty($langue)){
+            $qb->andWhere('e.langue = :langue')
+               ->setParameter('langue', $langue);
         }
 
         /**

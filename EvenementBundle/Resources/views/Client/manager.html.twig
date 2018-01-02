@@ -1,18 +1,16 @@
 {% extends "GlobalBundle:Client/Layout:layout.html.twig" %}
 
-{% block metaTitle %}Meta title{% endblock %}
-{% block metaDescription %}Meta description{% endblock %}
-
-{% block contentitle %}
-    <h1>Les événements</h1>
-{% endblock %}
+{% block metaTitle %}{{ 'evenement.client.manager.metatitle'|trans }}{% endblock %}
+{% block metaDescription %}{{ 'evenement.client.manager.metadescription'|trans }}{% endblock %}
 
 {% block content %}
+    <h1>{{ 'evenement.client.manager.title'|trans }}</h1>
+
     <div class="recherche">
         <form action="{{ path('client_evenement_manager') }}" method="post">
 
             <select name="categorie">
-                <option value="">Choisir une catégorie</option>
+                <option value="">{{ 'evenement.client.label.categorieall'|trans }}</option>
                 {% for categorie in categories %}
                     {% if recherches.categorie == categorie.id %}
                         <option value="{{ categorie.id }}" selected>{{ categorie.nom }}</option>
@@ -40,7 +38,7 @@
             {% endif %}
 
             <div class="evenementDate">
-                <p>du {{ avant.debut|date("d/m/Y à H:i") }} au {{ avant.fin|date("d/m/Y à H:i") }}</p>
+                <p>{{ 'evenement.client.label.datedu'|trans ~' '~ avant.debut|date("d/m/Y à H:i") ~' '~ 'evenement.client.label.dateau'|trans ~' '~ avant.fin|date("d/m/Y à H:i") }}</p>
             </div>
 
             <div class="evenementResume">
@@ -48,12 +46,11 @@
             </div>
 
             <div class="evenementLien">
-                <a href="{{ path('client_evenement_view',{'slug': avant.slug, 'id': avant.id})}}"><i class="fa fa-angle-right"></i> Voir plus</a>
+                <a href="{{ path('client_evenement_view',{'slug': avant.slug, 'id': avant.id})}}"><i class="fa fa-angle-right"></i> {{ 'evenement.client.link.plus'|trans }}</a>
             </div>
 
         </div>
     {% endif %}
-
 
     <div class="evenements">
 
@@ -70,7 +67,7 @@
                 {% endif %}
 
                 <div class="evenementDate">
-                    <p>du {{ evenement.debut|date("d/m/Y à H:i") }} au {{ evenement.fin|date("d/m/Y à H:i") }}</p>
+                    <p>{{ 'evenement.client.label.datedu'|trans ~' '~ evenement.debut|date("d/m/Y à H:i") ~' '~ 'evenement.client.label.dateau'|trans ~' '~ evenement.fin|date("d/m/Y à H:i") }}</p>
                 </div>
 
                 <div class="evenementResume">
@@ -78,11 +75,11 @@
                 </div>
 
                 <div class="evenementLien">
-                    <a href="{{ path('client_evenement_view',{'slug': evenement.slug, 'id': evenement.id})}}"><i class="fa fa-angle-right"></i> Voir plus</a>
+                    <a href="{{ path('client_evenement_view',{'slug': evenement.slug, 'id': evenement.id})}}"><i class="fa fa-angle-right"></i> {{ 'evenement.client.link.plus'|trans }}</a>
                 </div>
             </div>
         {% else %}
-            <p>Aucun événement</p>
+            <p>{{ 'evenement.client.validators.empty'|trans }}</p>
         {% endfor %}
 
         <div class="clear"></div>

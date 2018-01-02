@@ -12,9 +12,9 @@ class CategorieController extends Controller
 {
 
     /**
-     * Gestion
+     * Ajouter
      */
-    public function managerAdminAction(Request $request)
+    public function ajouterAdminAction(Request $request)
     {
         $categorie = new Categorie;
         $form = $this->get('form.factory')->create(CategorieType::class, $categorie);
@@ -29,13 +29,36 @@ class CategorieController extends Controller
             return $this->redirect($this->generateUrl('admin_evenementcategorie_manager'));
         }
 
+        return $this->render('EvenementBundle:Admin/Categorie:ajouter.html.twig',
+            array(
+                'form' => $form->createView()
+            )
+        );
+    }
+
+    /**
+     * Gestion
+     */
+    public function managerAdminAction(Request $request)
+    {
+        /* Services */
+        $rechercheService = $this->get('recherche.service');
+        $recherches = $rechercheService->setRecherche('evenementcategorie_manager', array(
+                'langue'
+            )
+        );
+
         $categories = $this->getDoctrine()
                            ->getRepository('EvenementBundle:Categorie')
-                           ->findBy(array(),array('id' => 'DESC'));
+                           ->getAllCategorie($recherches['langue']);
+
+        /* La liste des langues */
+        $langues = $this->getDoctrine()->getRepository('GlobalBundle:Langue')->findAll();
 
         return $this->render('EvenementBundle:Admin/Categorie:manager.html.twig',array(
-                'form' => $form->createView(),
+                'langues' => $langues,
                 'categories' => $categories,
+                'recherches' => $recherches
             )
         );
     }

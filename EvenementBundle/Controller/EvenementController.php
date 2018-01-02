@@ -47,13 +47,14 @@ class EvenementController extends Controller
         $rechercheService = $this->get('recherche.service');
         $recherches = $rechercheService->setRecherche('evenement_manager', array(
                 'recherche',
+                'langue'
             )
         );
 
         /* La liste des événements */
         $evenements = $this->getDoctrine()
                            ->getRepository('EvenementBundle:Evenement')
-                           ->getAllEvenements($recherches['recherche'], null, true);
+                           ->getAllEvenements($recherches['recherche'], $recherches['langue'], null, true);
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -62,9 +63,13 @@ class EvenementController extends Controller
             50/*limit per page*/
         );
 
+        /* La liste des langues */
+        $langues = $this->getDoctrine()->getRepository('GlobalBundle:Langue')->findAll();
+
         return $this->render('EvenementBundle:Admin:manager.html.twig',array(
                 'pagination' => $pagination,
-                'recherches' => $recherches
+                'recherches' => $recherches,
+                'langues' => $langues
             )
         );
     }

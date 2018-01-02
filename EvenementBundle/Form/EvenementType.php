@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use GlobalBundle\Form\Type\LangueType;
 use ReferencementBundle\Form\ReferencementType;
 
 class EvenementType extends AbstractType
@@ -60,6 +61,7 @@ class EvenementType extends AbstractType
             ->add('resume', TextareaType::class)
             ->add('contenu', TextareaType::class)
             ->add('referencement', ReferencementType::class)
+            ->add('langue', LangueType::class)
             ->add('Enregistrer', SubmitType::class, array(
                     'attr' => array('class' => 'form-submit turquoise medium')
                 )

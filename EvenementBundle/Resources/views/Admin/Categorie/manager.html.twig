@@ -3,20 +3,24 @@
 {% block contentTitre %}Gestion des catégories{% endblock %}
 
 {% block content %}
+    <div id="recherche">
+        <form action="{{ path('admin_evenementcategorie_manager') }}" method="post">
+            <select name="langue" class="form-elem medium">
+                <option value="">Choisir une langue</option>
+                {% for langue in langues %}
+                    {% if recherches.langue == langue.code %}
+                        <option value="{{ langue.code }}" selected>{{ langue.nom }}</option>
+                    {% else %}
+                        <option value="{{ langue.code }}">{{ langue.nom }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
 
-    {{ form_start(form, {'attr': {novalidate: 'novalidate'}}) }}
+            <button type="submit" name="addRecherche"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
 
-		{{ form_errors(form) }}
-
-		{{ form_label(form.nom, "Nom *") }}
-		{{ form_errors(form.nom) }}
-		{{ form_widget(form.nom, {'attr': {'class': 'form-elem big'}}) }}
-
-		{{ form_rest(form) }}
-
-    {{ form_end(form) }}
-
-	<br><br><table class="table">
+	<table class="table">
 		
 		<tr>
 			<th class="left" width="90%">Catégorie</th>

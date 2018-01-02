@@ -51,6 +51,14 @@ class Categorie
      */
     private $evenements;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="langue", type="string", length=8)
+     * @Assert\NotBlank(message="Compléter le champ langue")
+     */
+    private $langue;
+
     public function __construct()
     {
         $this->created = new \DateTime();
@@ -171,5 +179,21 @@ class Categorie
     public function getEvenements()
     {
         return $this->evenements;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLangue()
+    {
+        return $this->langue;
+    }
+
+    /**
+     * @param string $langue
+     */
+    public function setLangue($langue)
+    {
+        $this->langue = $langue;
     }
 }

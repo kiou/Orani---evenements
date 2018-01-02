@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use GlobalBundle\Form\Type\LangueType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class CategorieType extends AbstractType
@@ -17,6 +18,7 @@ class CategorieType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class)
+            ->add('langue', LangueType::class)
             ->add('Enregistrer', SubmitType::class, array(
                     'attr' => array('class' => 'form-submit turquoise medium')
                 )

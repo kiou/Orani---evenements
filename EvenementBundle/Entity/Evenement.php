@@ -133,6 +133,14 @@ class Evenement
      */
     private $avant;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="langue", type="string", length=8)
+     * @Assert\NotBlank(message="Compléter le champ langue")
+     */
+    private $langue;
+
     public function __construct()
     {
         $this->isActive = true;
@@ -526,5 +534,21 @@ class Evenement
     public function getCategorie()
     {
         return $this->categorie;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLangue()
+    {
+        return $this->langue;
+    }
+
+    /**
+     * @param string $langue
+     */
+    public function setLangue($langue)
+    {
+        $this->langue = $langue;
     }
 }

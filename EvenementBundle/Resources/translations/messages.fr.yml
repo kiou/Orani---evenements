@@ -1,0 +1,19 @@
+evenement:
+    client:
+        label:
+            categorieall: Choisir une catégorie
+            date: Date
+            datedu: du
+            dateau: au
+            categorie: Catégorie:
+        link:
+            plus: Voir plus
+        validators:
+            empty: Aucun évenement
+        manager:
+            metatitle: Les événements
+            metadescription: Les événements
+            title: Les événements
+            breadcrumb:
+                niveau1: Les événements
+
