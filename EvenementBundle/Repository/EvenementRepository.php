@@ -43,7 +43,7 @@ class EvenementRepository extends \Doctrine\ORM\EntityRepository
         else{
             $qb->andWhere('e.isActive =  :isActive')
                ->setParameter('isActive', true)
-               ->andWhere('e.avant LIKE :avant')
+               ->andWhere('e.avant = :avant')
                ->setParameter('avant', false)
                ->andWhere('e.fin >=  :fin')
                ->setParameter('fin', new \DateTime('now'))
@@ -57,27 +57,31 @@ class EvenementRepository extends \Doctrine\ORM\EntityRepository
         return $query = $qb->getQuery()->getResult();
     }
 
-    public function getAllEvenementsCalendrier()
+    public function getAllEvenementsCalendrier($langue)
     {
         $qb = $this->createQueryBuilder('e')
                    ->andWhere('e.isActive =  :isActive')
                    ->setParameter('isActive', true)
-                   ->andWhere('e.fin >=  :fin')
+                   ->andWhere('e.fin >= :fin')
                    ->setParameter('fin', new \DateTime('now'))
+                   ->andWhere('e.langue = :langue')
+                   ->setParameter('langue', $langue)
                    ->orderBy('e.debut', 'ASC');
 
         return $query = $qb->getQuery()->getResult();
     }
 
-    public function getAvantEvenement()
+    public function getAvantEvenement($langue)
     {
         $qb = $this->createQueryBuilder('e')
                    ->andWhere('e.isActive =  :isActive')
                    ->setParameter('isActive', true)
-                   ->andWhere('e.avant LIKE :avant')
+                   ->andWhere('e.avant = :avant')
                    ->setParameter('avant', true)
                    ->andWhere('e.fin >=  :fin')
                    ->setParameter('fin', new \DateTime('now'))
+                   ->andWhere('e.langue = :langue')
+                   ->setParameter('langue', $langue)
                    ->setMaxResults(1)
                    ->orderBy('e.debut', 'ASC');
 

@@ -172,17 +172,17 @@ class EvenementController extends Controller
         /* La liste des événements */
         $evenements = $this->getDoctrine()
                            ->getRepository('EvenementBundle:Evenement')
-                           ->getAllEvenements(null, $recherches['categorie'], false);
+                           ->getAllEvenements(null, $request->getLocale(), $recherches['categorie'], false);
 
         /* L'événement mis en avant */
         $avant = $this->getDoctrine()
                       ->getRepository('EvenementBundle:Evenement')
-                      ->getAvantEvenement();
+                      ->getAvantEvenement($request->getLocale());
 
         /* La liste des catégories */
         $categories = $this->getDoctrine()
                            ->getRepository('EvenementBundle:Categorie')
-                           ->findBy([],['id' => 'DESC']);
+                           ->getAlLCategorie($request->getLocale());
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -214,7 +214,7 @@ class EvenementController extends Controller
 
         /* BreadCrumb */
         $breadcrumb = array(
-            'Les événements' => $this->generateUrl('client_evenement_manager'),
+            $this->get('translator')->trans('evenement.client.view.breadcrumb.niveau1') => $this->generateUrl('client_evenement_manager'),
             $evenement->getTitre() => ''
         );
 
@@ -228,12 +228,12 @@ class EvenementController extends Controller
     /**
      * Block template liste
      */
-    public function lastEvenementAction($limit)
+    public function lastEvenementAction(Request $request, $limit)
     {
 
         $evenements = $this->getDoctrine()
                            ->getRepository('EvenementBundle:Evenement')
-                           ->getAllEvenements(null, null, false, $limit);
+                           ->getAllEvenements(null, $request->getLocale(), null, false, $limit);
 
         return $this->render( 'EvenementBundle:Include:liste.html.twig',array(
                 'evenements' => $evenements
@@ -255,11 +255,13 @@ class EvenementController extends Controller
         /* La liste des événements pour le calendier */
         $evenements = $this->getDoctrine()
                            ->getRepository('EvenementBundle:Evenement')
-                           ->getAllEvenementsCalendrier();
+                           ->getAllEvenementsCalendrier($request->getLocale());
 
         foreach ($evenements as $evenement){
-            $evenementsR[$evenement->getDebut()->format('Y-m-j')][$evenement->getId()] = '<span>'.$evenement->getDebut()->format('d/m/Y').'</span><a href="'.$this->generateUrl('client_evenement_view',array('slug' => $evenement->getSlug(), 'id' => $evenement->getId())).'">'.$evenement->getTitre().'</a>';
+            $evenementsR[$evenement->getDebut()->format('Y-n-j')][$evenement->getId()] = '<span>'.$evenement->getDebut()->format('d/m/Y').'</span><a href="'.$this->generateUrl('client_evenement_view',array('slug' => $evenement->getSlug(), 'id' => $evenement->getId())).'">'.$evenement->getTitre().'</a>';
         }
+
+        dump($evenementsR);
 
         if($request->isXmlHttpRequest()){
 
