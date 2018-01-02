@@ -36,6 +36,7 @@
 <ul class="evenement-menu {{ getCurrentMenu(menuEvenement) }}">
     <li class="{{ getCurrentMenu(['admin_evenement_ajouter']) }}"><a href="{{ path('admin_evenement_ajouter')}}">Ajouter un événement</a></li>
     <li class="{{ getCurrentMenu(['admin_evenement_manager']) }}"><a href="{{ path('admin_evenement_manager')}}">Gestion des événements</a></li>
+    <li class="{{ getCurrentMenu(['admin_evenementcategorie_ajouter']) }}"><a href="{{ path('admin_evenementcategorie_ajouter')}}">Ajouter une catégorie</a></li>
     <li class="{{ getCurrentMenu(['admin_evenementcategorie_manager']) }}"><a href="{{ path('admin_evenementcategorie_manager')}}">Gestion des catégories</a></li>
 </ul>
 ```
