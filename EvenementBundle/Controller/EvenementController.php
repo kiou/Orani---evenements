@@ -248,8 +248,8 @@ class EvenementController extends Controller
     public function calendrierEvenementAction(Request $request, $annee = null, $mois = null)
     {
         $agenda = $this->get('agenda.service');
-        $moisfr = $agenda->getMois();
-        $joursfr = $agenda->getJours();
+        $moisi18 = $agenda->getMois($request->getLocale());
+        $joursi18 = $agenda->getJours($request->getLocale());
         $evenementsR = array();
 
         /* La liste des événements pour le calendier */
@@ -261,12 +261,10 @@ class EvenementController extends Controller
             $evenementsR[$evenement->getDebut()->format('Y-n-j')][$evenement->getId()] = '<span>'.$evenement->getDebut()->format('d/m/Y').'</span><a href="'.$this->generateUrl('client_evenement_view',array('slug' => $evenement->getSlug(), 'id' => $evenement->getId())).'">'.$evenement->getTitre().'</a>';
         }
 
-        dump($evenementsR);
-
         if($request->isXmlHttpRequest()){
 
             return new JsonResponse(array(
-                    'date' => $moisfr[$mois -1].' '.$annee,
+                    'date' => $moisi18[$mois -1].' '.$annee,
                     'contenu' => $this->render('EvenementBundle:Include:calendrier-ajax.html.twig', array(
                         'calendrier' => $agenda->getCalendrier($annee),
                         'evenements' => $evenementsR,
@@ -283,8 +281,8 @@ class EvenementController extends Controller
             return $this->render( 'EvenementBundle:Include:calendrier.html.twig',array(
                     'calendrier' => $agenda->getCalendrier($annee),
                     'evenements' => $evenementsR,
-                    'joursfr' => $joursfr,
-                    'moisfr' => $moisfr,
+                    'joursi18' => $joursi18,
+                    'moisi18' => $moisi18,
                     'annee' => $annee,
                     'mois' => $mois
                 )

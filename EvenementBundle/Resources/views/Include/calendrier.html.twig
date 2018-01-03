@@ -1,13 +1,13 @@
 <div class="calendrier">
 
     <div class="calendrierNav">
-        <p>{{ moisfr[mois -1] ~' '~ annee }}</p>
+        <p>{{ moisi18[mois -1] ~' '~ annee }}</p>
         <a href="#" data-url="{{ path('client_calendrier_ajax') }}" data-mois="{{ mois }}" data-annee="{{ annee }}" class="calendrierMoins"><i class="fa fa-angle-left"></i></a>
         <a href="#" data-url="{{ path('client_calendrier_ajax') }}" data-mois="{{ mois }}" data-annee="{{ annee }}" class="calendrierPlus"><i class="fa fa-angle-right"></i></a>
     </div>
 
     <div class="calendrierJour">
-        {% for jours in joursfr %}
+        {% for jours in joursi18 %}
             <span>{{ jours }}</span>
         {% endfor %}
     </div>
@@ -53,3 +53,4 @@
     </div>
 
 </div>
+
