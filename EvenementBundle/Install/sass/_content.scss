@@ -12,6 +12,13 @@
     min-height: 400px;
 }
 
+.evenementH{
+    margin-bottom: 30px;
+    &.last-child{
+        margin-bottom: 0px;
+    }
+}
+
 .evenementTitre{
     margin-bottom: 10px;
 }
@@ -69,6 +76,13 @@
     width: 25%;
     background-color: $gris;
     padding:40px 20px;
+    float: left;
+}
+
+.calendrierRight{
+    width: calc(75% - 25px);
+    float: left;
+    margin-left: 25px;
 }
 
 .calendrierNav{

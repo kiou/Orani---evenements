@@ -248,39 +248,47 @@ class EvenementController extends Controller
     public function calendrierEvenementAction(Request $request, $annee = null, $mois = null)
     {
         $agenda = $this->get('agenda.service');
-        $moisi18 = $agenda->getMois($request->getLocale());
-        $joursi18 = $agenda->getJours($request->getLocale());
-        $evenementsR = array();
+        $moisi18 = $agenda->getMois();
+        $joursi18 = $agenda->getJours();
+        $evenementsRCalendar = array();
 
         /* La liste des événements pour le calendier */
-        $evenements = $this->getDoctrine()
+        $evenementsCalendar = $this->getDoctrine()
                            ->getRepository('EvenementBundle:Evenement')
                            ->getAllEvenementsCalendrier($request->getLocale());
 
-        foreach ($evenements as $evenement){
-            $evenementsR[$evenement->getDebut()->format('Y-n-j')][$evenement->getId()] = '<span>'.$evenement->getDebut()->format('d/m/Y').'</span><a href="'.$this->generateUrl('client_evenement_view',array('slug' => $evenement->getSlug(), 'id' => $evenement->getId())).'">'.$evenement->getTitre().'</a>';
+        /* Les 2 derniers événements pour le bloc */
+        $evenementsBloc = $this->getDoctrine()
+                               ->getRepository('EvenementBundle:Evenement')
+                               ->getAllEvenements(null, $request->getLocale(), null, false, 2);
+
+        /* Formater les événements pour la calendrier */
+        foreach ($evenementsCalendar as $evenement){
+            $evenementsRCalendar[$evenement->getDebut()->format('Y-n-j')][$evenement->getId()] = '<span>'.$evenement->getDebut()->format('d/m/Y').'</span><a href="'.$this->generateUrl('client_evenement_view',array('slug' => $evenement->getSlug(), 'id' => $evenement->getId())).'">'.$evenement->getTitre().'</a>';
         }
 
+        /* Retour en ajax */
         if($request->isXmlHttpRequest()){
 
             return new JsonResponse(array(
                     'date' => $moisi18[$mois -1].' '.$annee,
                     'contenu' => $this->render('EvenementBundle:Include:calendrier-ajax.html.twig', array(
                         'calendrier' => $agenda->getCalendrier($annee),
-                        'evenements' => $evenementsR,
+                        'evenements' => $evenementsRCalendar,
                         'annee' => $annee,
                         'mois' => $mois,
                     ))->getContent()
                 )
             );
-
         }else{
+            /* Retour sans ajax */
             $annee = date('Y');
             $mois = date('n');
 
             return $this->render( 'EvenementBundle:Include:calendrier.html.twig',array(
                     'calendrier' => $agenda->getCalendrier($annee),
-                    'evenements' => $evenementsR,
+                    'evenements' => $evenementsRCalendar,
+                    'evenementsBloc' => $evenementsBloc,
                     'joursi18' => $joursi18,
                     'moisi18' => $moisi18,
                     'annee' => $annee,

@@ -1,3 +1,4 @@
+<!-- Le calendrier -->
 <div class="calendrier">
 
     <div class="calendrierNav">
@@ -53,4 +54,40 @@
     </div>
 
 </div>
+
+<!-- les 2 deniers événements -->
+<div class="calendrierRight">
+    {% if evenementsBloc is not empty %}
+
+        {% for evenement in evenementsBloc %}
+            <div class="evenementH">
+                <div class="evenementHDate">
+                    <p>{{ evenement.debut|date("d F Y à H:i") }}</p>
+                </div>
+
+                {% if evenement.categorie %}
+                    <div class="evenementHCategorie">
+                        <p>{{ evenement.categorie.nom }}</p>
+                    </div>
+                {% endif %}
+
+                <div class="evenementHTitre">
+                    <h3><a href="{{ path('client_evenement_view',{'slug': evenement.slug, 'id': evenement.id})}}">{{ evenement.titre|truncate(30) }}</a></h3>
+                </div>
+
+                <div class="evenementHResume">
+                    <p>{{ evenement.resume|truncate(120) }}</p>
+                </div>
+
+                <div class="evenementHLien">
+                    <a href="{{ path('client_evenement_view',{'slug': evenement.slug, 'id': evenement.id})}}"><i class="fa fa-angle-right"></i> {{ 'evenement.client.link.plus'|trans }}</a>
+                </div>
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+</div>
+
+<div class="clear"></div>
 
