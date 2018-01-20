@@ -6,42 +6,68 @@
 .evenement{
     float: left;
     width: calc((100% / 3) - 30px);
+    background-color: $blanc;
     margin: 0px 15px 30px 15px;
-    background-color: lighten($grisClair,13%);
-    padding:20px;
+    @include border-radius($borderBox);
+    @include transition-property(opacity, transform);
+    @include transition-duration(0.3s);
+    @include transition-timing-function(ease);
+    @include transform(scale(1));
+    opacity:1;
+    cursor: pointer;
     min-height: 400px;
-}
-
-.evenementH{
-    margin-bottom: 30px;
-    &.last-child{
-        margin-bottom: 0px;
+    &:hover{
+        opacity:0.5;
+        @include transform(scale(0.96));
     }
-}
-
-.evenementTitre{
-    margin-bottom: 10px;
 }
 
 .evenementImage{
+    position: relative;
     img{
         width: 100%;
-        margin-bottom: 10px;
+        @include border-top-radius($borderBox);
     }
 }
 
+.evenementPattern{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index:1;
+    @include background-image(linear-gradient(to top, rgba($gris,0.5), rgba($gris,0)));
+    @include border-top-radius($borderBox);
+}
+
 .evenementDate{
-    margin-bottom: 10px;
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    right: 10px;
+    z-index:2;
+}
+
+.evenementBottom{
+    padding: 20px 25px 25px 25px;
+}
+
+.evenementCategorie{
+    margin-bottom: 15px;
+}
+
+.evenementTitre{
+    margin-bottom: 15px;
+    h3{
+        a{
+            color: $gris;
+        }
+    }
 }
 
 .evenementResume{
     margin-bottom: 15px;
-}
-
-.evenementLien{
-    a{
-        font-size: 14px;
-    }
 }
 
 .evenementAvant{

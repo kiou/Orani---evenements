@@ -3,13 +3,16 @@
 {% block metaTitle %}{{ 'evenement.client.manager.metatitle'|trans }}{% endblock %}
 {% block metaDescription %}{{ 'evenement.client.manager.metadescription'|trans }}{% endblock %}
 
-{% block content %}
+{% block contentTitle %}
     <h1>{{ 'evenement.client.manager.title'|trans }}</h1>
+{% endblock %}
 
+{% block content %}
+    <!-- La recherche -->
     <div class="recherche">
         <form action="{{ path('client_evenement_manager') }}" method="post">
 
-            <select name="categorie">
+            <select name="categorie" class="form-elem form-recherche">
                 <option value="">{{ 'evenement.client.label.categorieall'|trans }}</option>
                 {% for categorie in categories %}
                     {% if recherches.categorie == categorie.id %}
@@ -20,62 +23,73 @@
                 {% endfor %}
             </select>
 
-            <button type="submit" name="addRecherche"><i class="fa fa-search"></i></button>
+            <button type="submit" name="addRecherche" class="btn type2 form-recherche" data-btn="Rechercher">Rechercher</button>
         </form>
+
+        <div class="clear"></div>
     </div>
 
+    <!-- Mise en avant -->
     {% if avant %}
         <div class="evenementAvant">
+
+            <div class="evenementImage">
+                {% if avant.image %}
+                    <img src="{{ asset('img/evenement/miniature/' ~ avant.image) }}">
+                {% else %}
+                    <img src="{{ asset('img/evenement/miniature/alt.jpg') }}">
+                {% endif %}
+            </div>
+
+            {% if evenement.categorie %}
+                <div class="evenementCategorie">
+                    <p>{{ evenement.categorie.nom }}</p>
+                </div>
+            {% endif %}
 
             <div class="evenementTitre">
                 <h3><a href="{{ path('client_evenement_view',{'slug': avant.slug, 'id': avant.id})}}">{{ avant.titre }}</a></h3>
             </div>
 
-            {% if avant.image %}
-                <div class="evenementImage">
-                    <img src="{{ asset('img/evenement/miniature/' ~ avant.image) }}">
-                </div>
-            {% endif %}
-
-            <div class="evenementDate">
-                <p>{{ 'evenement.client.label.datedu'|trans ~' '~ avant.debut|date("d/m/Y à H:i") ~' '~ 'evenement.client.label.dateau'|trans ~' '~ avant.fin|date("d/m/Y à H:i") }}</p>
-            </div>
-
             <div class="evenementResume">
                 <p>{{ avant.resume }}</p>
             </div>
-
-            <div class="evenementLien">
-                <a href="{{ path('client_evenement_view',{'slug': avant.slug, 'id': avant.id})}}"><i class="fa fa-angle-right"></i> {{ 'evenement.client.link.plus'|trans }}</a>
-            </div>
-
         </div>
     {% endif %}
 
+    <!-- Liste des événéments -->
     <div class="evenements">
 
         {% for evenement in pagination %}
             <div class="evenement">
-                <div class="evenementTitre">
-                    <h3><a href="{{ path('client_evenement_view',{'slug': evenement.slug, 'id': evenement.id})}}">{{ evenement.titre|truncate(30) }}</a></h3>
-                </div>
-
-                {% if evenement.image %}
-                    <div class="evenementImage">
+                <div class="evenementImage">
+                    {% if evenement.image %}
                         <img src="{{ asset('img/evenement/miniature/' ~ evenement.image) }}">
+                    {% else %}
+                        <img src="{{ asset('img/evenement/miniature/alt.jpg') }}">
+                    {% endif %}
+
+                    <div class="evenementPattern"></div>
+
+                    <div class="evenementDate">
+                        <p>{{ 'evenement.client.label.datedu'|trans ~' '~ evenement.debut|date("d/m/Y à H:i") ~' '~ 'evenement.client.label.dateau'|trans ~' '~ evenement.fin|date("d/m/Y à H:i") }}</p>
                     </div>
-                {% endif %}
-
-                <div class="evenementDate">
-                    <p>{{ 'evenement.client.label.datedu'|trans ~' '~ evenement.debut|date("d/m/Y à H:i") ~' '~ 'evenement.client.label.dateau'|trans ~' '~ evenement.fin|date("d/m/Y à H:i") }}</p>
                 </div>
 
-                <div class="evenementResume">
-                    <p>{{ evenement.resume|truncate(120) }}</p>
-                </div>
+                <div class="evenementBottom">
+                    {% if evenement.categorie %}
+                        <div class="evenementCategorie">
+                            <p>{{ evenement.categorie.nom }}</p>
+                        </div>
+                    {% endif %}
 
-                <div class="evenementLien">
-                    <a href="{{ path('client_evenement_view',{'slug': evenement.slug, 'id': evenement.id})}}"><i class="fa fa-angle-right"></i> {{ 'evenement.client.link.plus'|trans }}</a>
+                    <div class="evenementTitre">
+                        <h3><a href="{{ path('client_evenement_view',{'slug': evenement.slug, 'id': evenement.id})}}">{{ evenement.titre|truncate(30) }}</a></h3>
+                    </div>
+
+                    <div class="evenementResume">
+                        <p>{{ evenement.resume|truncate(120) }}</p>
+                    </div>
                 </div>
             </div>
         {% else %}

@@ -1,0 +1,75 @@
+/* ActualiteBundle */
+.actualites{
+    margin: 0px -15px 0px -15px;
+}
+
+.actualite{
+    float: left;
+    width: calc((100% / 3) - 30px);
+    background-color: $blanc;
+    margin: 0px 15px 30px 15px;
+    @include border-radius($borderBox);
+    @include transition-property(opacity, transform);
+    @include transition-duration(0.3s);
+    @include transition-timing-function(ease);
+    @include transform(scale(1));
+    opacity:1;
+    cursor: pointer;
+    min-height: 490px;
+    &:hover{
+        opacity:0.5;
+        @include transform(scale(0.96));
+    }
+}
+
+.actualiteImage{
+    img{
+        width: 100%;
+        @include border-top-radius($borderBox);
+    }
+}
+
+.actualiteBottom{
+    padding: 20px 25px 25px 25px;
+}
+
+.actualiteCategorie{
+    margin-bottom: 15px;
+}
+
+.actualiteTitre{
+    margin-bottom: 15px;
+    h3{
+        a{
+            color: $gris;
+        }
+    }
+}
+
+.actualiteResume{
+    margin-bottom: 15px;
+}
+
+.actualiteDate{
+    border-top:1px solid $grisClair;
+}
+
+/* PAS DE DESIGN */
+.actualiteAvant {
+    background-image: url(../../img/layout/pasdedesign.jpg);
+    margin-bottom: 30px;
+}
+
+.actualiteViewImage{
+    margin-bottom: 30px;
+    img{
+        max-width: 100%;
+    }
+}
+
+.actualiteViewBottom{
+    background-color: $blanc;
+    padding:25px;
+    margin-bottom: 25px;
+    @include border-radius($borderBox);
+}

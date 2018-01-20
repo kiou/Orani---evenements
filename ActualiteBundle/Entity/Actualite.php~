@@ -1,6 +1,6 @@
 <?php
 
-namespace EvenementBundle\Entity;
+namespace ActualiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Cocur\Slugify\Slugify;
@@ -12,14 +12,14 @@ use Imagine\Image\Box;
 use GlobalBundle\Service\Upload;
 
 /**
- * Evenement
+ * Actualite
  *
- * @ORM\Table(name="evenement")
- * @ORM\Entity(repositoryClass="EvenementBundle\Repository\EvenementRepository")
- * @UniqueEntity(fields="slug", message="Un événement avec cette url existe déjà")
+ * @ORM\Table(name="actualite")
+ * @ORM\Entity(repositoryClass="ActualiteBundle\Repository\ActualiteRepository")
+ * @UniqueEntity(fields="slug", message="Une actualité avec cette url existe déjà")
  * @ORM\HasLifecycleCallbacks
  */
-class Evenement
+class Actualite
 {
     /**
      * @var int
@@ -51,14 +51,6 @@ class Evenement
      * @Assert\NotBlank(message="Compléter le champ date de début")
      */
     private $debut;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="fin", type="datetimetz")
-     * @Assert\NotBlank(message="Compléter le champ date de fin")
-     */
-    private $fin;
 
     /**
      * @var string
@@ -116,13 +108,20 @@ class Evenement
     private $isActive;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="poid", type="integer")
+     */
+    private $poid;
+
+    /**
      * @ORM\OneToOne(targetEntity="ReferencementBundle\Entity\Referencement", cascade={"persist","remove"})
      * @Assert\Valid
      */
     private $referencement;
 
     /**
-     * @ORM\ManyToOne(targetEntity="EvenementBundle\Entity\Categorie", inversedBy="evenements")
+     * @ORM\ManyToOne(targetEntity="ActualiteBundle\Entity\Categorie", inversedBy="actualites")
      */
     private $categorie;
 
@@ -133,18 +132,11 @@ class Evenement
      */
     private $avant;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="langue", type="string", length=8)
-     * @Assert\NotBlank(message="Compléter le champ langue")
-     */
-    private $langue;
-
     public function __construct()
     {
         $this->isActive = true;
         $this->created = new \DateTime();
+        $this->poid = 1;
         $this->avant = false;
     }
 
@@ -163,7 +155,7 @@ class Evenement
      *
      * @param \DateTime $created
      *
-     * @return Evenement
+     * @return Actualite
      */
     public function setCreated($created)
     {
@@ -187,7 +179,7 @@ class Evenement
      *
      * @param \DateTime $changed
      *
-     * @return Evenement
+     * @return Actualite
      */
     public function setChanged($changed)
     {
@@ -219,7 +211,7 @@ class Evenement
      *
      * @param \DateTime $debut
      *
-     * @return Evenement
+     * @return Actualite
      */
     public function setDebut($debut)
     {
@@ -239,35 +231,11 @@ class Evenement
     }
 
     /**
-     * Set fin
-     *
-     * @param \DateTime $fin
-     *
-     * @return Evenement
-     */
-    public function setFin($fin)
-    {
-        $this->fin = $fin;
-
-        return $this;
-    }
-
-    /**
-     * Get fin
-     *
-     * @return \DateTime
-     */
-    public function getFin()
-    {
-        return $this->fin;
-    }
-
-    /**
      * Set titre
      *
      * @param string $titre
      *
-     * @return Evenement
+     * @return Actualite
      */
     public function setTitre($titre)
     {
@@ -291,7 +259,7 @@ class Evenement
      *
      * @param string $slug
      *
-     * @return Evenement
+     * @return Actualite
      */
     public function setSlug($slug)
     {
@@ -316,7 +284,7 @@ class Evenement
      *
      * @param string $resume
      *
-     * @return Evenement
+     * @return Actualite
      */
     public function setResume($resume)
     {
@@ -340,7 +308,7 @@ class Evenement
      *
      * @param string $contenu
      *
-     * @return Evenement
+     * @return Actualite
      */
     public function setContenu($contenu)
     {
@@ -418,7 +386,7 @@ class Evenement
                 ->save($this->getUploadRootDir().'tmp/'.$this->image);
 
         /* Miniature */
-        $size = new Box(375,225);
+        $size = new Box(300,190);
         $imagine->open($this->fileimage)
                 ->thumbnail($size, 'outbound')
                 ->save($this->getUploadRootDir().'miniature/'.$this->image);
@@ -427,7 +395,7 @@ class Evenement
 
     public function getUploadRootDir()
     {
-        return __DIR__.'/../../../web/img/evenement/';
+        return __DIR__.'/../../../web/img/actualite/';
     }
 
     /**
@@ -435,7 +403,7 @@ class Evenement
      *
      * @param boolean $isActive
      *
-     * @return Evenement
+     * @return Actualite
      */
     public function setIsActive($isActive)
     {
@@ -465,27 +433,27 @@ class Evenement
     }
 
     /**
-     * Set avant
+     * Set poid
      *
-     * @param boolean $avant
+     * @param integer $poid
      *
-     * @return Evenement
+     * @return Actualite
      */
-    public function setAvant($avant)
+    public function setPoid($poid)
     {
-        $this->avant = $avant;
+        $this->poid = $poid;
 
         return $this;
     }
 
     /**
-     * Get avant
+     * Get poid
      *
-     * @return boolean
+     * @return integer
      */
-    public function getAvant()
+    public function getPoid()
     {
-        return $this->avant;
+        return $this->poid;
     }
 
     /**
@@ -493,7 +461,7 @@ class Evenement
      *
      * @param \ReferencementBundle\Entity\Referencement $referencement
      *
-     * @return Evenement
+     * @return Page
      */
     public function setReferencement(\ReferencementBundle\Entity\Referencement $referencement = null)
     {
@@ -515,11 +483,11 @@ class Evenement
     /**
      * Set categorie
      *
-     * @param \EvenementBundle\Entity\Categorie $categorie
+     * @param \ActualiteBundle\Entity\Categorie $categorie
      *
-     * @return Evenement
+     * @return Actualite
      */
-    public function setCategorie(\EvenementBundle\Entity\Categorie $categorie = null)
+    public function setCategorie(\ActualiteBundle\Entity\Categorie $categorie = null)
     {
         $this->categorie = $categorie;
 
@@ -529,7 +497,7 @@ class Evenement
     /**
      * Get categorie
      *
-     * @return \EvenementBundle\Entity\Categorie
+     * @return \ActualiteBundle\Entity\Categorie
      */
     public function getCategorie()
     {
@@ -537,18 +505,26 @@ class Evenement
     }
 
     /**
-     * @return string
+     * Set avant
+     *
+     * @param boolean $avant
+     *
+     * @return Actualite
      */
-    public function getLangue()
+    public function setAvant($avant)
     {
-        return $this->langue;
+        $this->avant = $avant;
+
+        return $this;
     }
 
     /**
-     * @param string $langue
+     * Get avant
+     *
+     * @return boolean
      */
-    public function setLangue($langue)
+    public function getAvant()
     {
-        $this->langue = $langue;
+        return $this->avant;
     }
 }

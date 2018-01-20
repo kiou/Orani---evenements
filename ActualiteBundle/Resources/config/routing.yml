@@ -1,0 +1,74 @@
+admin_actualite_manager:
+    path:     /admin/actualite/gestion
+    defaults: { _controller: ActualiteBundle:Actualite:managerAdmin }
+
+admin_actualite_ajouter:
+    path:     /admin/actualite/ajouter
+    defaults: { _controller: ActualiteBundle:Actualite:ajouterAdmin }
+
+admin_actualite_publier:
+    path:     /admin/actualite/publier/{id}
+    defaults: { _controller: ActualiteBundle:Actualite:publierAdmin }
+    requirements:
+        id: \d+
+
+admin_actualite_poid:
+    path:     /admin/actualite/poid/{id}/{poid}
+    defaults:
+        _controller: ActualiteBundle:Actualite:poidAdmin
+        poid : 1
+    requirements:
+        id: \d+
+        poid: \d+
+
+admin_actualite_modifier:
+    path:     /admin/actualite/modifier/{id}
+    defaults: { _controller: ActualiteBundle:Actualite:modifierAdmin }
+    requirements:
+        id: \d+
+
+admin_actualite_supprimer:
+    path:     /admin/actualite/supprimer/{id}
+    defaults: { _controller: ActualiteBundle:Actualite:supprimerAdmin }
+    requirements:
+        id: \d+
+
+admin_actualite_supprimer_image:
+    path:     /admin/actualite/supprimer-image/{id}
+    defaults: { _controller: ActualiteBundle:Actualite:AdminSupprimerImage }
+    requirements:
+        id: \d+
+
+client_actualite_manager:
+    path:     /actualites
+    defaults: { _controller: ActualiteBundle:Actualite:managerClient }
+
+client_actualite_view:
+    path:     /actualite/{slug}/{id}
+    defaults: { _controller: ActualiteBundle:Actualite:viewClient }
+    requirements:
+        slug: ([a-z-0-9]*)
+        id: \d+
+
+#Catégorie
+admin_actualitecategorie_manager:
+    path:     /admin/actualite-categorie/manager
+    defaults: { _controller: ActualiteBundle:Categorie:managerAdmin }
+
+admin_actualitecategorie_ajouter:
+    path:     /admin/actualite-categorie/ajouter
+    defaults: { _controller: ActualiteBundle:Categorie:ajouterAdmin }
+
+admin_actualitecategorie_modifier:
+    path:     /admin/actualite-categorie/modifier/{id}
+    defaults: { _controller: ActualiteBundle:Categorie:modifierAdmin }
+    requirements:
+        id: \d+
+
+admin_actualitecategorie_supprimer:
+    path:     /admin/actualite-categorie/supprimer/{id}
+    defaults: { _controller: ActualiteBundle:Categorie:supprimerAdmin }
+    requirements:
+        id: \d+
+
+

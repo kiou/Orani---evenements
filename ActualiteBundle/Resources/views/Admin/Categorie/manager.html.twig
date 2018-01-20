@@ -1,0 +1,63 @@
+{% extends "GlobalBundle:Admin/Layout:layout.html.twig" %}
+
+{% block contentTitre %}Gestion des catégories{% endblock %}
+
+{% block content %}
+    <div id="recherche">
+        <form action="{{ path('admin_actualitecategorie_manager') }}" method="post">
+            <select name="langue" class="form-elem medium">
+                <option value="">Choisir une langue</option>
+                {% for langue in langues %}
+                    {% if recherches.langue == langue.code %}
+                        <option value="{{ langue.code }}" selected>{{ langue.nom }}</option>
+                    {% else %}
+                        <option value="{{ langue.code }}">{{ langue.nom }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+
+            <button type="submit" name="addRecherche"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+
+    <table class="table">
+		
+		<tr>
+			<th class="left" width="90%">Catégorie</th>
+			<th colspan="2" width="10%">Actions</th>
+		</tr>
+
+		{% for categorie in categories %}
+			
+			<tr>
+
+				<td class="left">
+					<p class="tableDate">Ajouté le {{ categorie.created|date("d/m/Y à H:i") }}</p>
+					{% if categorie.changed is not null %}
+						<p class="tableDate">Modifié le {{ categorie.changed|date("d/m/Y à H:i") }}</p>
+					{% endif %}
+					<p><strong>{{ categorie.nom }}</strong></p>
+				</td>
+
+				<td>
+                    <a href="{{ path('admin_actualitecategorie_modifier',{'id': categorie.id})}}" title="Modifier la catégorie"><i class=" tableAction fa fa-pencil"></i></a>
+                </td>
+
+				<td>
+                    {% if categorie.actualites|length == 0 %}
+						<a href="{{ path('admin_actualitecategorie_supprimer',{'id': categorie.id})}}" class="sweetDelete" title="Supprimer la catégorie" data-title="Supprimer la catégorie" data-text="êtes vous sur ?"><i class=" tableAction fa fa-trash"></i></a>
+                    {%  else %}
+						<a href="#" class="sweetAlert" title="Supprimer la catégorie" data-title="Suppression impossible" data-text="Il éxiste une relation avec une actualité"><i class="disabled tableAction fa fa-trash"></i></a>
+					{% endif %}
+                </td>
+			</tr>
+
+		{% else %}
+			<tr>
+				<td colspan="3">Aucune catégorie</td>
+			</tr>
+		{% endfor %}
+
+	</table>
+
+{% endblock %}
