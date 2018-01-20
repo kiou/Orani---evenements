@@ -17,7 +17,7 @@
     cursor: pointer;
     min-height: 400px;
     &:hover{
-        opacity:0.5;
+        opacity:0.6;
         @include transform(scale(0.96));
     }
 }
@@ -37,16 +37,44 @@
     right: 0px;
     bottom: 0px;
     z-index:1;
-    @include background-image(linear-gradient(to top, rgba($gris,0.5), rgba($gris,0)));
+    @include background-image(linear-gradient(to top, rgba($gris,0.6), rgba($gris,0)));
     @include border-top-radius($borderBox);
 }
 
 .evenementDate{
     position: absolute;
-    left: 10px;
-    bottom: 10px;
-    right: 10px;
+    left: 25px;
+    bottom: 25px;
+    right: 25px;
     z-index:2;
+    p{
+        color: $blanc;
+        font-size: 25px;
+        line-height: 25px;
+        font-weight: 500;
+    }
+}
+
+.evenementDateJour{
+    display: inline-block;
+    border-bottom:1px solid $blanc;
+    padding:0px 5px 2px 5px;
+}
+
+.evenementDateMois{
+    padding:2px 5px 0px 5px;
+}
+
+.evenementDateAnnee{
+    position: absolute;
+    left: 36px;
+    bottom: 0px;
+    p{
+        font-size: 16px;
+        font-weight: normal;
+        color: lighten($grisContenu,35%);
+        line-height: 18px;
+    }
 }
 
 .evenementBottom{
@@ -66,171 +94,267 @@
     }
 }
 
-.evenementResume{
-    margin-bottom: 15px;
-}
-
-.evenementAvant{
-    float: left;
-    width: 100%;
-    margin: 0px 0px 30px 0px;
-    background-color: lighten($grisClair,13%);
-    padding:20px;
-
-    .evenementImage{
-        img{
-            width: auto;
-            max-width: 100%
-        }
-    }
+/* PAS DE DESIGN */
+.evenementAvant {
+    background-image: url(../../img/layout/pasdedesign.jpg);
+    margin-bottom: 30px;
 }
 
 .evenementViewImage{
+    margin-bottom: 30px;
     img{
-        width: 100%;
-        margin-bottom: 20px;
+        max-width: 100%;
     }
 }
 
-.evenementViewDate,
-.evenementViewCategorie{
-    margin-bottom: 20px;
+.evenementViewBottom{
+    background-color: $blanc;
+    padding:25px;
+    margin-bottom: 25px;
+    @include border-radius($borderBox);
 }
 
 /* Calendar */
-.calendrier{
-    width: 25%;
-    background-color: $gris;
-    padding:40px 20px;
+.calendier{
+    background-color: $blanc;
+    @include border-radius($borderBox);
+    padding:40px;
+}
+
+.calendrierLeft{
+    width: 30%;
+    background-color: $blanc;
     float: left;
+    @include border-radius($borderBox);
+    @include box-shadow(darken($grisClair,6%) 0px 0px 20px);
 }
 
 .calendrierRight{
-    width: calc(75% - 25px);
+    width: calc(70% - 60px);
     float: left;
-    margin-left: 25px;
+    margin-left: 60px;
+    h2{
+        color: $violet;
+        border-bottom:1px solid darken($grisClair,4%);
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+    }
 }
 
 .calendrierNav{
     width: 100%;
-    height: 59px;
+    border-bottom:1px solid darken($grisClair,4%);
+    @include border-top-radius($borderBox);
+    height: 60px;
     text-align: center;
     position: relative;
     p{
-        text-transform: uppercase;
-        font-size: 20px;
-        line-height: 59px;
-        color: #fff;
-    }
-    a{
         position: absolute;
-        top: 10px;
-        font-size: 30px;
-        color: #fff;
+        left: 0px;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        z-index:1;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 60px;
     }
 
-    .calendrierMoins{
-        left: 15px;
+    a{
+        position: absolute;
+        top: 0px;
+        bottom: 0;
+        width: 50px;
+        z-index:2;
+        font-size: 17px;
+        line-height: 60px;
+        color: $grisContenu;
+        @include transition-property(background-color, color);
+        @include transition-duration(0.3s);
+        @include transition-timing-function(ease);
+        &:hover{
+            background-color: $gris;
+            color: $blanc;
+        }
     }
-    .calendrierPlus{
-        right: 15px;
+
+    .fa-refresh{
+        position: absolute;
+        left: calc(50% - 15px);
+        top: calc(50% - 15px);
+        color: $blanc;
+        z-index:3;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 15px;
+        text-align: center;
+        @include border-radius(50%);
+        background-color: rgba($gris, 0.7);
     }
 }
 
+.calendrierMoins{
+    left: 0px;
+    border-right: 1px solid darken($grisClair,4%);
+    @include border-top-left-radius($borderBox);
+}
+
+.calendrierPlus{
+    right: 0px;
+    border-left: 1px solid darken($grisClair,4%);
+    @include border-top-right-radius($borderBox);
+}
+
 .calendrierJour{
+    padding: 10px 10px 0px 10px;
     width: 100%;
-    height: 40px;
-    line-height: 40px;
-    span{
-        display: block;
-        width: 14.28%;
+    p{
+        height: 40px;
+        line-height: 40px;
+        width: calc(100% / 7);
         float: left;
         text-align: center;
-        font-size: 16px;
-        color: #fff;
+        font-size: 12px;
+        text-transform: uppercase;
+        font-weight: 800;
     }
 }
 
 .calendrierContent{
+    padding: 0px 10px 10px 10px;
     table{
         width: 100%;
     }
-    tbody{
-        border: none;
-    }
     td{
-        text-align: center;
-        font-size: 16px;
-        padding: 10px 2px;
         position: relative;
-        vertical-align: middle;
-        color: #fff;
+        text-align: center;
+        font-size: 15px;
+        font-weight: 600;
+        color: $grisContenu;
+        padding: 3px 0px;
+
+        span{
+            padding:9px 5px;
+            display: block;
+            @include border-radius($borderCalendar);
+            @include transition-property(opacity);
+            @include transition-duration(0.3s);
+            @include transition-timing-function(ease);
+        }
     }
 }
 
 .calendrierPuce{
+    background-color: $gris;
+    color: $blanc;
     cursor: pointer;
-    background-color: lighten($gris,10%);
-    display: inline-block;
-    @include transition-property(background-color);
-    @include transition-duration(0.3s);
-    @include transition-timing-function(ease);
-    @include border-radius(50%);
-    height: 30px;
-    width: 30px;
-    text-align: center;
-    line-height:30px;
-    font-size: 15px;
-    color: #fff;
     &:hover{
-        background-color: lighten($gris,15%);
+        opacity:0.6;
     }
 }
 
 .calendrierEvenement{
     position: absolute;
-    right: -215px;
-    top: -5px;
+    right: -280px;
+    top: 3px;
     width: 0px;
-    padding:0px;
     text-align: left;
-    background-color: #fff;
+    background-color: $gris;
     z-index: 200;
     opacity: 0;
     overflow: hidden;
     @include box-shadow(rgba($grisClair,0.3) 2px 2px 10px);
     @include transition-property(opacity, right);
     @include transition-duration(0.3s);
-    a{
-        text-transform: uppercase;
-        padding-bottom: 6px;
-        margin-bottom: 6px;
-        border-bottom: 1px solid $grisClair;
-        display: block;
-        font-size:13px;
-        &:last-child{
-            border-bottom: 0px;
-            padding: 0px;
-            margin: 0px;
-        }
-    }
-    span{
-        font-size: 13px;
-        color: darken($grisClair,5%);
-    }
+    @include border-radius($borderCalendar);
     &.active{
         opacity: 1;
-        right: -300px;
+        right: -310px;
         width: 300px;
-        padding: 10px 20px;
+        padding: 20px 20px 0px 20px;
+    }
+    .fa-times{
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        padding:10px;
+        color: $blanc;
+        cursor: pointer;
+        @include transition-property(transform, opacity);
+        @include transition-duration(0.3s);
+        @include transition-timing-function(ease);
+        opacity:1;
+        z-index:2;
+        &:hover{
+            opacity:0.8;
+            @include transform(rotate(90deg));
+        }
     }
 
-    .fa-times{
-        color: $grisClair;
-        position: absolute;
-        right: 5px;
-        top: 5px;
+    a{
+        color: $blanc;
+        text-transform: uppercase;
         font-size: 13px;
-        cursor: pointer;
+        font-weight: 600;
+        display: block;
+        margin-bottom: 7px;
+        @include transition-property(opacity);
+        @include transition-duration(0.3s);
+        @include transition-timing-function(ease);
+        &:hover{
+            opacity:0.6;
+        }
+    }
+
+    p{
+        color: lighten($gris ,35%);
+        font-size: 14px;
+        font-weight: 200;
+        line-height:21px;
+        margin-bottom: 20px;
+    }
+}
+
+.evenementH{
+    margin-bottom: 30px;
+    @include transition-property(opacity, transform);
+    @include transition-duration(0.3s);
+    @include transition-timing-function(ease);
+    @include transform(scale(1));
+    opacity:1;
+    cursor: pointer;
+    &:hover{
+        opacity:0.6;
+        @include transform(scale(0.96));
+    }
+    &:last-child{
+        margin-bottom: 0px;
+    }
+}
+
+.evenementHDate{
+    width: 25%;
+    float: left;
+}
+
+.evnementHRight{
+    width: 75%;
+    float: left;
+}
+
+.evenementHCategorie{
+    p{
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+}
+
+.evenementHTitre{
+    h3{
+        a{
+            color: $gris;
+        }
     }
 }

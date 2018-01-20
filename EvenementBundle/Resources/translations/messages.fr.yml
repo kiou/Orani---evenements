@@ -2,7 +2,7 @@ evenement:
     client:
         label:
             categorieall: Choisir une catégorie
-            date: Date
+            date: Date:
             datedu: du
             dateau: au
             categorie: Catégorie:
@@ -14,7 +14,20 @@ evenement:
             metatitle: Les événements
             metadescription: Les événements
             title: Les événements
+            recherche:
+                bouton: Rechercher
         view:
             breadcrumb:
                 niveau1: Les événements
+        include:
+              liste:
+                  title: Les événements
+                  soustitle: Informations liées aux événements
+                  voirplus: La liste des événements
+              calendrier:
+                  title: "L'agenda"
+                  soustitle: "L’agenda avec la mise en avant des dates"
+                  toptitle: Evénements
+
+
 

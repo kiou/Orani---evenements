@@ -8,6 +8,7 @@ $(function(){
         var lien = $(this);
         var mois = parseInt(lien.attr('data-mois')) + 1;
         var annee = parseInt(lien.attr('data-annee'));
+        var nav = $('.calendrierNav');
 
         if(mois > 12){
             mois = 1;
@@ -16,31 +17,39 @@ $(function(){
 
         var url = lien.attr('data-url')+'/'+annee+'/'+mois;
 
-        $.ajax(url,{
-            dataType:"json"
-        })
-        .done(function(data){
+        if(!nav.hasClass('current')) {
+            nav.prepend('<i class="fa fa-refresh fa-spin"></i>');
+            nav.addClass('current');
 
-            /* Calendrier */
-            $('.calendrierNav p').html(data.date);
-            $('.calendrierContent').hide().html(data.contenu).fadeIn('fast');
+            $.ajax(url, {
+                dataType: "json"
+            })
+                .done(function (data) {
+                    nav.find('.fa-refresh').remove();
+                    nav.removeClass('current');
 
-            /* Mise à jour des liens de navigation */
-            $('.calendrierPlus').attr('data-mois',mois);
-            $('.calendrierPlus').attr('data-annee',annee);
+                    /* Calendrier */
+                    $('.calendrierNav p').html(data.date);
+                    $('.calendrierContent').hide().html(data.contenu).fadeIn('fast');
 
-            if(mois == 1){
-                $('.calendrierMoins').attr('data-mois',1);
-                $('.calendrierMoins').attr('data-annee',annee - 1);
-            }else{
-                $('.calendrierMoins').attr('data-mois',mois);
-                $('.calendrierMoins').attr('data-annee',annee);
-            }
+                    /* Mise à jour des liens de navigation */
+                    $('.calendrierPlus').attr('data-mois', mois);
+                    $('.calendrierPlus').attr('data-annee', annee);
 
-        })
-        .fail(function(){
-            alert('Erreur Ajax');
-        });
+                    if (mois == 1) {
+                        $('.calendrierMoins').attr('data-mois', 1);
+                        $('.calendrierMoins').attr('data-annee', annee - 1);
+                    } else {
+                        $('.calendrierMoins').attr('data-mois', mois);
+                        $('.calendrierMoins').attr('data-annee', annee);
+                    }
+
+                })
+                .fail(function () {
+                    alert('Erreur Ajax');
+                });
+
+        }
 
     });
 
@@ -51,6 +60,7 @@ $(function(){
         var lien = $(this);
         var mois = parseInt(lien.attr('data-mois')) - 1;
         var annee = parseInt(lien.attr('data-annee'));
+        var nav = $('.calendrierNav');
 
         if(mois < 1){
             mois = 12;
@@ -59,32 +69,40 @@ $(function(){
 
         var url = lien.attr('data-url')+'/'+annee+'/'+mois;
 
-        $.ajax(url,{
-            dataType:"json"
-        })
-        .done(function(data){
+        if(!nav.hasClass('current')) {
+            nav.prepend('<i class="fa fa-refresh fa-spin"></i>');
+            nav.addClass('current');
 
-            /* Calendrier */
-            $('.calendrierNav p').html(data.date);
-            $('.calendrierContent').hide().html(data.contenu).fadeIn('fast');
+            $.ajax(url, {
+                dataType: "json"
+            })
+                .done(function (data) {
+                    nav.find('.fa-refresh').remove();
+                    nav.removeClass('current');
 
-            /* Mise à jour des liens de navigation */
-            $('.calendrierMoins').attr('data-mois',mois);
-            $('.calendrierMoins').attr('data-annee',annee);
+                    /* Calendrier */
+                    $('.calendrierNav p').html(data.date);
+                    $('.calendrierContent').hide().html(data.contenu).fadeIn('fast');
+
+                    /* Mise à jour des liens de navigation */
+                    $('.calendrierMoins').attr('data-mois', mois);
+                    $('.calendrierMoins').attr('data-annee', annee);
 
 
-            if(mois == 12){
-                $('.calendrierPlus').attr('data-mois',1);
-                $('.calendrierPlus').attr('data-annee',annee + 1);
-            }else{
-                $('.calendrierPlus').attr('data-mois',mois);
-                $('.calendrierPlus').attr('data-annee',annee);
-            }
+                    if (mois == 12) {
+                        $('.calendrierPlus').attr('data-mois', 1);
+                        $('.calendrierPlus').attr('data-annee', annee + 1);
+                    } else {
+                        $('.calendrierPlus').attr('data-mois', mois);
+                        $('.calendrierPlus').attr('data-annee', annee);
+                    }
 
-        })
-        .fail(function(){
-            alert('Erreur Aajax');
-        });
+                })
+                .fail(function () {
+                    alert('Erreur Aajax');
+                });
+
+        }
 
     });
 

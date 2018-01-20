@@ -1,93 +1,109 @@
-<!-- Le calendrier -->
-<div class="calendrier">
+<div class="bloc">
 
-    <div class="calendrierNav">
-        <p>{{ moisi18[mois -1] ~' '~ annee }}</p>
-        <a href="#" data-url="{{ path('client_calendrier_ajax') }}" data-mois="{{ mois }}" data-annee="{{ annee }}" class="calendrierMoins"><i class="fa fa-angle-left"></i></a>
-        <a href="#" data-url="{{ path('client_calendrier_ajax') }}" data-mois="{{ mois }}" data-annee="{{ annee }}" class="calendrierPlus"><i class="fa fa-angle-right"></i></a>
+    <div class="blocHeader">
+        <h2 class="title">{{ 'evenement.client.include.calendrier.title'|trans }}</h2>
+        <p>{{ 'evenement.client.include.calendrier.soustitle'|trans }}</p>
     </div>
 
-    <div class="calendrierJour">
-        {% for jours in joursi18 %}
-            <span>{{ jours }}</span>
-        {% endfor %}
-    </div>
+    <div class="calendier">
 
-    <div class="calendrierContent">
-        <table>
-            {% set jours = calendrier[annee][mois] %}
-            {% set end = jours|last %}
+        <div class="calendrierLeft">
 
-            {% for d, w in jours %}
-
-                {% if d == 1 and w != 1 %}
-                    <td colspan="{{ w -1 }}"></td>
-                {% endif %}
-
-                {% set time = annee~'-'~mois~'-'~d %}
-                <td>
-                    {% if evenements[time] is defined %}
-                        <span class="calendrierPuce">{{ d }}</span>
-
-                        <div class="calendrierEvenement">
-                            <i class="fa fa-times"></i>
-
-                            {% for evenement in evenements[time] %}
-                                {{ evenement|raw }}
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ d }}
-                    {% endif %}
-                </td>
-
-                {% if w == 7 %}
-                    </tr><tr>
-                {% endif %}
-
-            {% endfor %}
-
-            {% if end != 7 %}
-                <td colspan="{{ 7 -end }}"></td>
-            {% endif %}
-        </table>
-    </div>
-
-</div>
-
-<!-- les 2 deniers événements -->
-<div class="calendrierRight">
-    {% if evenementsBloc is not empty %}
-
-        {% for evenement in evenementsBloc %}
-            <div class="evenementH">
-                <div class="evenementHDate">
-                    <p>{{ evenement.debut|date("d F Y à H:i") }}</p>
-                </div>
-
-                {% if evenement.categorie %}
-                    <div class="evenementHCategorie">
-                        <p>{{ evenement.categorie.nom }}</p>
-                    </div>
-                {% endif %}
-
-                <div class="evenementHTitre">
-                    <h3><a href="{{ path('client_evenement_view',{'slug': evenement.slug, 'id': evenement.id})}}">{{ evenement.titre|truncate(30) }}</a></h3>
-                </div>
-
-                <div class="evenementHResume">
-                    <p>{{ evenement.resume|truncate(120) }}</p>
-                </div>
-
-                <div class="evenementHLien">
-                    <a href="{{ path('client_evenement_view',{'slug': evenement.slug, 'id': evenement.id})}}"><i class="fa fa-angle-right"></i> {{ 'evenement.client.link.plus'|trans }}</a>
-                </div>
+            <div class="calendrierNav">
+                <p>{{ moisi18[mois -1] ~' '~ annee }}</p>
+                <a href="#" data-url="{{ path('client_calendrier_ajax') }}" data-mois="{{ mois }}" data-annee="{{ annee }}" class="calendrierMoins"><i class="fa fa-angle-left"></i></a>
+                <a href="#" data-url="{{ path('client_calendrier_ajax') }}" data-mois="{{ mois }}" data-annee="{{ annee }}" class="calendrierPlus"><i class="fa fa-angle-right"></i></a>
             </div>
 
-        {% endfor %}
+            <div class="calendrierJour">
+                {% for jours in joursi18 %}
+                    <p>{{ jours }}</p>
+                {% endfor %}
 
-    {% endif %}
+                <div class="clear"></div>
+            </div>
+
+            <div class="calendrierContent">
+                <table>
+                    {% set jours = calendrier[annee][mois] %}
+                    {% set end = jours|last %}
+
+                    {% for d, w in jours %}
+
+                    {% if d == 1 and w != 1 %}
+                        <td colspan="{{ w -1 }}"></td>
+                    {% endif %}
+
+                    {% set time = annee~'-'~mois~'-'~d %}
+                    <td>
+                        {% if evenements[time] is defined %}
+                            <span class="calendrierPuce">{{ d }}</span>
+
+                            <div class="calendrierEvenement">
+                                <i class="fa fa-times"></i>
+
+                                {% for evenement in evenements[time] %}
+                                    {{ evenement|raw }}
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <span>{{ d }}</span>
+                        {% endif %}
+                    </td>
+
+                    {% if w == 7 %}
+                    </tr><tr>
+                        {% endif %}
+
+                        {% endfor %}
+
+                        {% if end != 7 %}
+                            <td colspan="{{ 7 -end }}"></td>
+                        {% endif %}
+                </table>
+            </div>
+
+        </div>
+
+        <div class="calendrierRight">
+            <h2>{{ 'evenement.client.include.calendrier.toptitle'|trans }}</h2>
+
+            {% if evenementsBloc is not empty %}
+
+                {% for evenement in evenementsBloc %}
+                    <div class="evenementH navFull" data-url="{{ path('client_evenement_view',{'slug': evenement.slug, 'id': evenement.id})}}">
+                        <div class="evenementHDate">
+                            <p>{{ evenement.debut|date("d F Y ") }}</p>
+                        </div>
+
+                        <div class="evnementHRight">
+                            <div class="evenementHTitre">
+                                <h3><a href="{{ path('client_evenement_view',{'slug': evenement.slug, 'id': evenement.id})}}">{{ evenement.titre|truncate(30) }}</a></h3>
+                            </div>
+
+                            {% if evenement.categorie %}
+                                <div class="evenementHCategorie">
+                                    <p>{{ evenement.categorie.nom }}</p>
+                                </div>
+                            {% endif %}
+
+                            <div class="evenementHResume">
+                                <p>{{ evenement.resume|truncate(120) }}</p>
+                            </div>
+                        </div>
+
+                        <div class="clear"></div>
+                    </div>
+                {% endfor %}
+
+            {% endif %}
+        </div>
+
+        <div class="clear"></div>
+
+    </div>
+
 </div>
 
-<div class="clear"></div>
+
 

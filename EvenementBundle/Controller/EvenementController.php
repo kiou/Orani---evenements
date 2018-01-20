@@ -188,7 +188,7 @@ class EvenementController extends Controller
         $pagination = $paginator->paginate(
             $evenements, /* query NOT result */
             $request->query->getInt('page', 1) /*page number*/,
-            16 /*limit per page*/
+            9 /*limit per page*/
         );
 
         return $this->render('EvenementBundle:Client:manager.html.twig', array(
@@ -264,7 +264,7 @@ class EvenementController extends Controller
 
         /* Formater les événements pour la calendrier */
         foreach ($evenementsCalendar as $evenement){
-            $evenementsRCalendar[$evenement->getDebut()->format('Y-n-j')][$evenement->getId()] = '<span>'.$evenement->getDebut()->format('d/m/Y').'</span><a href="'.$this->generateUrl('client_evenement_view',array('slug' => $evenement->getSlug(), 'id' => $evenement->getId())).'">'.$evenement->getTitre().'</a>';
+            $evenementsRCalendar[$evenement->getDebut()->format('Y-n-j')][$evenement->getId()] = '<a href="'.$this->generateUrl('client_evenement_view',array('slug' => $evenement->getSlug(), 'id' => $evenement->getId())).'">'.$evenement->getTitre().'</a><p>'.$this->get('tool.service')->truncate($evenement->getResume(),70).'</p>';
         }
 
         /* Retour en ajax */
