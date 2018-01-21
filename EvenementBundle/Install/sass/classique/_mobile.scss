@@ -1,0 +1,46 @@
+@media screen and (max-width: 1024px) {
+
+    .evenement{
+        min-height: auto;
+    }
+
+}
+
+@media screen and (max-width: 920px) {
+
+    .calendrierLeft{
+        width: 40%;
+    }
+
+    .calendrierRight{
+        width: calc(60% - 40px);
+        margin-left: 40px;
+    }
+
+}
+
+@media screen and (max-width: 800px) {
+
+    .evenement{
+        width: calc((100% / 2) - 30px);
+    }
+
+    .calendrierLeft{
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .calendrierRight{
+        width: 100%;
+        margin-left: 0px;
+    }
+
+}
+
+@media screen and (max-width: 640px){
+
+    .evenement{
+        width: calc(100% - 30px);
+    }
+
+}
